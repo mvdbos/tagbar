@@ -2055,7 +2055,7 @@ function! s:ProcessFile(fname, ftype) abort
     call writefile(getbufline(fileinfo.bufnr, 1, '$'), tempfile)
     let fileinfo.mtime = getftime(tempfile)
 
-    let ctags_output = s:ExecuteCtagsOnFile(tempfile, a:fname, typeinfo)
+    let ctags_output = s:ExecuteCtagsOnFile(fnamemodify(a:fname, ':.'), a:fname, typeinfo)
 
     call delete(tempfile)
 
@@ -3583,7 +3583,7 @@ function! s:EscapeCtagsCmd(ctags_bin, args, ...) abort
         "  windows cmd.exe.
         let ctags_cmd = a:ctags_bin
     else
-        let ctags_cmd = shellescape(a:ctags_bin)
+        let ctags_cmd = a:ctags_bin
     endif
 
     "Add additional arguments to ctags_cmd
